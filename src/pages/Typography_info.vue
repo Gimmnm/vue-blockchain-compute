@@ -125,7 +125,7 @@ export default {
           this.$toast.error(''+response.data.error);
         }
         this.machine = JSON.parse(response.data.data);
-        console.log(this.machine);
+        // console.log(this.machine);
       })
       .catch(error => {
         this.$toast.error(''+error);

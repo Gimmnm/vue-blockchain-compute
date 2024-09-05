@@ -82,7 +82,7 @@ export default {
                 await navigator.clipboard.writeText(this.code);
                 alert('Text copied!');
             } catch (err) {
-                console.error('Failed to copy: ', err);
+                // console.error('Failed to copy: ', err);
             }
         }
     }

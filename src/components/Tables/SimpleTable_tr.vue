@@ -105,7 +105,7 @@ export default {
         ...localTransactions,
         Number: index + 1
       }));
-      console.log(this.transactionWithIndex);
+      // console.log(this.transactionWithIndex);
     },
   },
   mounted() {

@@ -108,13 +108,13 @@ export default {
     },
   },
   mounted() {
-    console.log(Date.now());
+    // console.log(Date.now());
     this.localMachines = [...this.machines];
     this.machineWithIndex = this.localMachines.map((localMachines, index) => ({
       ...localMachines,
       Number: index + 1
     }));
-    console.log(this.machineWithIndex[1].UserOrgDueDate);
+    // console.log(this.machineWithIndex[1].UserOrgDueDate);
   }
 };
 </script>

@@ -135,7 +135,7 @@ export default {
     Delete() {
     },
     Price() {
-      console.log("hello");
+      // console.log("hello");
       this.$router.push({name: "Typography_cj", params:{itemId: this.trId}});
     },
     formatTimestamp(timestamp) {
@@ -158,7 +158,7 @@ export default {
           this.$toast.error(''+response.data.error);
         }
         this.transaction = JSON.parse(response.data.data);
-        console.log(this.transaction);
+        // console.log(this.transaction);
       })
       .catch(error => {
         this.$toast.error(''+error);
@@ -170,7 +170,7 @@ export default {
           this.$toast.error(''+response.data.error);
         }
         this.user = JSON.parse(response.data.data);
-        console.log(this.machine);
+        // console.log(this.machine);
       })
       .catch(error => {
         this.$toast.error(''+error);

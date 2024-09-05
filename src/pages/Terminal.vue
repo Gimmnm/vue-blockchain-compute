@@ -74,10 +74,10 @@
           this.sendWindowSize();
         };
         this.socket.onerror = error => {
-            console.error('WebSocket error:', error);
+            // console.error('WebSocket error:', error);
         };
         this.socket.onclose = () => {
-            console.log('WebSocket disconnected');
+            // console.log('WebSocket disconnected');
         };
         this.attachAddon = new AttachAddon(this.socket);
         this.term.loadAddon(this.attachAddon);

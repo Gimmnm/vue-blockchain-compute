@@ -37,7 +37,7 @@ axios.interceptors.response.use(
   function (response) {
     // 检查是否有数据，如果没有数据返回自定义的默认值
     if (!response.data || response.data === '') {
-      console.warn('响应数据为空，返回默认值');
+      // console.warn('响应数据为空，返回默认值');
       return { data: null }; // 返回一个默认对象，防止后续代码报错
     }
     return response;  // 正常返回数据
