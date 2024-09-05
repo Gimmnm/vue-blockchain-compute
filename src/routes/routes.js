@@ -1,7 +1,5 @@
 import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 
-import Dashboard from "@/pages/Dashboard.vue";
-import UserProfile from "@/pages/UserProfile.vue";
 import TableList_all from "@/pages/TableList_all.vue";
 import TableList_my from "@/pages/TableList_my.vue";
 import TableList_tr from "@/pages/TableList_tr.vue";
@@ -21,16 +19,6 @@ const routes = [
     component: DashboardLayout,
     redirect: "/table_my",
     children: [
-      // {
-      //   path: "dashboard",
-      //   name: "主页",
-      //   component: Dashboard,
-      // },
-      {
-        path: "user",
-        name: "用户信息",
-        component: UserProfile,
-      },
       {
         path: "table_all",
         name: "组内算力",

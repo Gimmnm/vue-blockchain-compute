@@ -7,7 +7,7 @@
                 <img src="@/assets/img/bulb-filled-svgrepo-com.svg" alt="Auto Create">
                 <div class="text-content">
                 <router-link to="/create/template" style="font-size: 23px;"><strong>Create from automation</strong></router-link>
-                <p>This option allows you to automatically create content.</p>
+                <p>This option allows you to automatically create your computing resources.</p>
                 </div>
             </div>
             </div>
