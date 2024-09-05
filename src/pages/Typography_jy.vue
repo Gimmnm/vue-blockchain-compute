@@ -1,0 +1,209 @@
+<template>
+  <!-- <div class="content"> -->
+    <!-- <div class="md-layout">
+      <div class="md-layout-item"> -->
+        <div class="overlay-page" @click="closeOverlayClick" ref="overlay">
+          <div class="overlay-content" @click.stop>
+            <button @click="closeOverlay">✖</button>
+          <md-card>
+          <md-card-header data-background-color="gray">
+            <div class="flex-container">
+              <h1 class="title"><strong>{{ machine.Name }}</strong></h1>
+              <md-button :disabled="isLoading" style="padding: 10px 10px; min-width: 10px;" class="md-lg md-simple" @click="postTransaction()">
+                <strong>发布</strong>
+              </md-button>
+              <md-button :disabled="isLoading" style="padding: 10px 10px; min-width: 10px;" class="md-lg md-simple" @click="gotoMarket()">
+                <strong>算力市场</strong>
+              </md-button>
+            </div>
+          </md-card-header>
+          <md-card-content>
+            <div class="md-layout">
+            <p v-show="1==2">{{ machineId }} {{ machineName }}</p>
+            <!-- <div class="md-layout-item md-small-size-100 md-size-100">
+                <md-field>
+                <label>Machine Name</label>
+                <md-input v-model="machineName" type="text" readonly></md-input>
+                </md-field>
+            </div> -->
+            <div class="md-layout-item md-small-size-100 md-size-100">
+                <md-field>
+                <label>ID</label>
+                <md-input v-model="machineId" tyep="text" readonly></md-input>
+                </md-field>
+            </div>
+            <div class="md-layout-item md-small-size-100 md-size-100">
+                <md-field>
+                <label>租用价格</label>
+                <md-input v-model="formData.price" tyep="text"></md-input>
+                </md-field>
+            </div>
+            <div class="md-layout-item md-small-size-100 md-size-100">
+                <md-field>
+                <label>租用时间</label>
+                <md-input v-model="formData.duration" tyep="text"></md-input>
+                </md-field>
+            </div>
+            <!-- <div class="md-layout-item md-small-size-100 md-size-90">
+                <md-field>
+                <label>Code</label>
+                <md-input v-model="code" tyep="text" readonly></md-input>
+                </md-field>
+            </div>
+            <div class="md-layout-item md-size-10 text-left">
+                <md-button class="md-raised md-simple" @click="Copy()">Copy</md-button>
+            </div>
+            <div class="md-layout-item md-size-100 text-right">
+                <md-button class="md-raised md-info" @click="Back()">Back</md-button>
+            </div> -->
+            </div>
+        </md-card-content>
+<!--           
+          <md-card-content>
+            <div id="typography">
+              <div class="row">
+                <div class="tim-typo">
+                  <h5>
+                    <span class="tim-note">Header 5</span>The life of Material, The life of Material, The life of Material, The life of Material, The life of Material Dashboard
+                    <span class="tim-note">Header 5</span>The life of Material, The life of Material, The life of Material, The life of Material, The life of Material
+                    Dashboard
+                  </h5> 
+                </div>
+                <div class="tim-typo">
+                  <h5>
+                    <span class="tim-note">Header 5</span>The life of Material
+                    Dashboard
+                  </h5>
+                </div>
+                <div class="tim-typo">
+                  <h5>
+                    <span class="tim-note">Header 5</span>The life of Material
+                    Dashboard
+                  </h5>
+                </div>
+                <div class="tim-typo">
+                  <h5>
+                    <span class="tim-note">Header 5</span>The life of Material
+                    Dashboard
+                  </h5>
+                </div>
+                <div class="tim-typo">
+                  <h5>
+                    <span class="tim-note">Header 5</span>The life of Material
+                    Dashboard
+                  </h5>
+                </div>
+                <div class="tim-typo">
+                  <h5>
+                    <span class="tim-note">Header 5</span>The life of Material
+                    Dashboard
+                  </h5>
+                </div>
+              </div>
+            </div>
+          </md-card-content> -->
+        </md-card>
+          </div>
+        </div>
+        
+      <!-- </div> -->
+    <!-- </div>
+  </div> -->
+</template>
+
+<script>
+export default {
+  props: {
+    dataBackgroundColor: {
+      type: String,
+      default: "",
+    },
+  },
+  methods: {
+    closeOverlay() {
+      this.$router.go(-1); // 返回上一页面
+    },
+    gotoMarket() {
+      this.$router.push("/table_tr");
+    },
+    postTransaction() {
+      if (this.formData.price != '' && this.formData.duration != '') {
+        this.isLoading = true;
+        this.$axios.post('/api/v1/market/put/' + this.machineId, this.formData)
+        .then(response => {
+          if (response.data.message === "error") {
+            this.$toast.error(''+response.data.error);
+          } else {
+            this.$router.push("/table_tr");
+          }
+        })
+        .catch(error => {
+          this.$toast.error(''+error);
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
+      }
+    },
+    closeOverlayClick(event) {
+      if (event.target === this.$refs.overlay) {
+        this.$router.push("/table_my");
+      }
+    },
+  },
+  created() {
+    this.$axios.get('/api/v1/queryresource/'+this.machineId)
+      .then(response => {
+        if (response.data.message === "error") {
+          this.$toast.error(''+response.data.error);
+        }
+        this.machine = JSON.parse(response.data.data);
+        console.log(this.machine);
+      })
+      .catch(error => {
+        this.$toast.error(''+error);
+      });
+  },
+  data() {
+    return {
+      machineId: this.$route.params.itemId,
+      machine: {},
+      formData: {
+        duration: '',
+        price: '',
+      },
+      isLoading: false,
+    };
+  },
+};
+</script>
+<style scoped>
+.overlay-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 80%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.flex-container {
+  display: flex;
+  align-items: center;  /* 垂直居中子元素 */
+}
+.title {
+  margin-right: 10px;  /* 在标题和按钮之间添加一些间距 */
+}
+
+</style>
